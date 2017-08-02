@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font: 14px/1 Arial, sans-serif;
+}
+table {
+  border-collapse: collapse;
+  background: white;
+  table-layout: fixed;
+  width: 100%;
+}
+th, td {
+
+  border: 1px solid #ddd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pane {
+  background: #eee;
+}
+.pane-hScroll {
+  overflow: auto;
+  width: 3400px;
+   background: #eee;
+}
+.pane-vScroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height:1000px;
+  background: #eee;
+}

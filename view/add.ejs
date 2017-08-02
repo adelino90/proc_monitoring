@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= title %></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="/css/add.css">
+<link rel="stylesheet" href="/css/global.css">
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-datepicker.min.js"></script>
+</head>
+<body>
+  <div class = "container">
+    <div class = "row">
+        
+              <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="email">Code (PAP)	:</label>
+                    <input type="text" class="form-control" id="code_PAP" value ='<%= (locals.data ? data.code_PAP : '') %>'>
+                  </div>
+                  <div class="form-group">
+                    <label>PR #:</label>
+                    <input type="text" class="form-control" id="pr_no"  value ='<%= (locals.data ? data.pr_no : '') %>'>
+                  </div>
+                  <div class="form-group">
+                    <label>PO/JO #:</label>
+                    <input type="text" class="form-control" id="PO_JO" value ='<%= (locals.data ? data.PO_JO : '') %>'>
+                  </div>
+                  <div class="form-group">
+                    <label>Procurement Program/Project:</label>
+                    <textarea class="form-control" rows="5" id="program_proj_name"><%= (locals.data ? data.program_proj_name : '') %></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label>Mode of Procurement:</label>
+                    <input type="text" class="form-control" id="MOP" value ='<%= (locals.data ? data.MOP : '') %>'>
+                  </div>
+                  <div class="form-group">
+                    <label>PMO/End-User:</label>
+                    <input type="text" class="form-control" id="end_user" value ='<%= (!locals.data ? '' : data.end_user ) %>'>
+                  </div>
+                  <div class="col-md-12 border">
+                      <p class="thick">Actual Procurement Activity</p>
+                        <div class="col-md-6  form-group">
+                          <label>Pre-Proc Conferenc:</label>
+                          <input class="datepicker form-control" id="pre_Proc" data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                          <label>Ads/Post of IAEB:</label>
+                          <input class="datepicker form-control" id="ads_post_IAEB" value ='<%= (locals.data ? data.ads_post_IAEB : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                            <label>Pre-bid Conf:</label>
+                            <input class="datepicker form-control" id="Pre_bid" value ='<%= (locals.data ? data.Pre_bid : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                            <label>Eligibility Check:</label>
+                            <input class="datepicker form-control" id="Eligibility_Check" value ='<%= (locals.data ? data.Eligibility_Check : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                          <label>Sub/Open of Bids:</label>
+                          <input class="datepicker form-control" id="oob" value ='<%= (locals.data ? data.oob : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                          <label>Bid Evaluation:</label>
+                          <input class="datepicker form-control" id="Bid_Eval" value ='<%= (locals.data ? data.Bid_Eval : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                          <label>Post Qual:</label>
+                          <input class="datepicker form-control" id="Post_Qual" value ='<%= (locals.data ? data.Post_Qual : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                          <label>Notice of Award:</label>
+                          <input class="datepicker form-control" id="Notice_of_Award" value ='<%= (locals.data ? data.Notice_of_Award : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                          <label>Contract Signing:</label>
+                          <input class="datepicker form-control" id="Contract_Signing" value ='<%= (locals.data ? data.Contract_Signing : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                          <label>Notice to Proceed:</label>
+                          <input class="datepicker form-control" id="Notice_To_Proceed" value ='<%= (locals.data ? data.Notice_To_Proceed : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                          <label>Delivery/ Completion:</label>
+                          <input class="datepicker form-control" id="Del_Completion" value ='<%= (locals.data ? data.Del_Completion : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                        <div class="col-md-6  form-group">
+                          <label>Acceptance/ Turnover	:</label>
+                          <input class="datepicker form-control" id="Acceptance_date" value ='<%= (locals.data ? data.Acceptance_date : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                        </div>
+                         
+                  </div>  
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                    <label>Source of Funds:</label>
+                    <input type="text" class="form-control" id="Source_of_Funds" value ='<%= (locals.data ? data.Source_of_Funds : '') %>'>
+                </div>
+                   <div class="col-md-12 border">
+                      <p class="thick">ABC(PhP)</p>
+                      <div class="col-md-3 form-group">
+                        <label>Total:</label>
+                        <input type="number" class="form-control" id="ABC" value ='<%= (locals.data ? data.ABC : '') %>'>
+                      </div>
+                      <div class="col-md-3 form-group">
+                        <label>MOOE:</label>
+                        <input type="number" class="form-control" id="ABC_MOOE" value ='<%= (locals.data ? data.ABC_MOOE : '') %>'>
+                      </div>
+                      <div class="col-md-3 form-group">
+                        <label>	CO:</label>
+                        <input type="number" class="form-control" id="ABC_CO" value ='<%= (locals.data ? data.ABC_CO : '') %>'>
+                      </div>
+                      <div class="col-md-3 form-group">
+                        <label>	Others:</label>
+                        <input type="number" class="form-control" id="ABC_Others" value ='<%= (locals.data ? data.ABC_Others : '') %>'>
+                      </div>
+                   </div>
+
+                   <div class="col-md-12 border">
+                      <p class="thick">Contract Cost(PhP)</p>
+                      <div class="col-md-3 form-group">
+                        <label>Total:</label>
+                        <input type="number" class="form-control" id="Contract_Cost" value ='<%= (locals.data ? data.Contract_Cost : '') %>'>
+                      </div>
+                      <div class="col-md-3 form-group">
+                        <label>MOOE:</label>
+                        <input type="number" class="form-control" id="Contract_Cost_MOOE" value ='<%= (locals.data ? data.Contract_Cost_MOOE : '') %>'>
+                      </div>
+                      <div class="col-md-3 form-group">
+                        <label>	CO:</label>
+                        <input type="number" class="form-control" id="Contract_Cost_CO" value ='<%= (locals.data ? data.Contract_Cost_CO : '') %>'>
+                      </div>
+                      <div class="col-md-3 form-group">
+                        <label>	Others:</label>
+                        <input type="number" class="form-control" id="Contract_Cost_Others" value ='<%= (locals.data ? data.Contract_Cost_Others : '') %>'>
+                      </div>
+                   </div>
+                   <div class="form-group">
+                    <label>List of Invited Observers:</label>
+                    <textarea class="form-control" rows="5" id="Invited_Observers"><%= (locals.data ? data.Invited_Observers : '') %> </textarea>
+                  </div>
+
+                  <div class="col-md-12 border">
+                    <p class="thick">Date of Receipt of Invitation</p>
+                    <div class="col-md-6  form-group">
+                          <label>Pre-Proc Conferenc:</label>
+                          <input class="datepicker form-control" id="DRP_Pre_Proc_conf" value ='<%= (locals.data ? data.DRP_Pre_Proc_conf : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                    </div>
+                     <div class="col-md-6  form-group">
+                        <label>Pre-bid Conf:</label>
+                        <input class="datepicker form-control" id="DRP_Pre_Bid_conf" value ='<%= (locals.data ? data.DRP_Pre_Bid_conf : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                     </div>
+                     <div class="col-md-6  form-group">
+                        <label>Eligibility Check:</label>
+                        <input class="datepicker form-control" id="DRP_Eligibility_check " value ='<%= (locals.data ? data.DRP_Eligibility_check : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                     </div>
+                     <div class="col-md-6  form-group">
+                      <label>Sub/Open of Bids:</label>
+                      <input class="datepicker form-control" id="DRP_OOP" value ='<%= (locals.data ? data.DRP_OOP : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                     </div>
+
+                     <div class="col-md-6  form-group">
+                        <label>Bid Evaluation:</label>
+                        <input class="datepicker form-control" id="DRP_Bid_Eval" value ='<%= (locals.data ? data.DRP_Bid_Eval : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                     </div>
+                     <div class="col-md-6  form-group">
+                       <label>Post Qual:</label>
+                       <input class="datepicker form-control" id="DRP_Post_Qual" value ='<%= (locals.data ? data.DRP_Post_Qual : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                     </div>
+                     <div class="col-md-6  form-group">
+                       <label>Notice of Award:</label>
+                        <input class="datepicker form-control" id="DRP_Notice_of_Award" value ='<%= (locals.data ? data.DRP_Notice_of_Award : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                      </div>
+                      <div class="col-md-6  form-group">
+                        <label>Contract Signing:</label>
+                        <input class="datepicker form-control" id="DRP_Contract_Signing" value ='<%= (locals.data ? data.DRP_Contract_Signing : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                      </div>
+                      <div class="col-md-6  form-group">
+                          <label>Delivery/ Completion:</label>
+                          <input class="datepicker form-control" id="DRP_Delivery_Accept" value ='<%= (locals.data ? data.DRP_Delivery_Accept : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                      </div>
+                  </div> 
+                  <div class="form-group">
+                    <label>Remarks:</label>
+                    <textarea class="form-control" rows="5" id="Remarks"> <%= (locals.data ? data.Remarks : '') %> </textarea>
+                  </div>
+                  <button type="button" class="btn btn-info col-md-6" id = "procurement_save" data-save-id ='<%= (locals.data ? data.id : '') %>'  data-id="<%= mode %>">Save</button>
+                  <a href="/?sc=<%= (locals.data ? data.id : '') %>" class="btn btn-info col-md-6 btn-warning" role="button" >Back</a>
+              </div>
+             
+     </div>
+ </div>
+
+
+</body>
+<script>
+      $('#procurement_save').click(function(){
+          entry = {};
+            entry.code_PAP = $('#code_PAP').val();
+            entry.pr_no = $('#pr_no').val();
+            entry.PO_JO  =$('#PO_JO').val();
+            entry.program_proj_name  =$('#program_proj_name').val();
+            entry.end_user  = $('#end_user').val();
+            entry.MOP  = $('#MOP').val();
+            entry.pre_Proc  = $('#pre_Proc').val();
+            entry.ads_post_IAEB  = $('#ads_post_IAEB').val();
+            entry.Pre_bid = $('#Pre_bid').val();
+            entry.Eligibility_Check  = $('#Eligibility_Check').val();
+            entry.oob  = $('#oob').val();
+            entry.Bid_Eval  = $('#Bid_Eval').val();
+            entry.Post_Qual  = $('#Post_Qual').val();
+            entry.Notice_of_Award  = $('#Notice_of_Award').val();
+            entry.Contract_Signing  = $('#Contract_Signing').val();
+            entry.Notice_To_Proceed  = $('#Notice_To_Proceed').val();
+            entry.Del_Completion =$('#Del_Completion').val();
+            entry.Acceptance_date  = $('#Acceptance_date').val();
+            entry.Source_of_Funds  = $('#Source_of_Funds').val();
+            entry.ABC  = $('#ABC').val();
+            entry.ABC_MOOE  = $('#ABC_MOOE').val();
+            entry.ABC_CO  = $('#ABC_CO').val();
+            entry.ABC_Others  = $('#ABC_Others').val();
+            entry.Contract_Cost  = $('#Contract_Cost').val();
+            entry.Contract_Cost_MOOE = $('#Contract_Cost_MOOE').val();
+            entry.Contract_Cost_CO = $('#Contract_Cost_CO').val();
+            entry.Contract_Cost_Others  = $('#Contract_Cost_Others').val();
+            entry.Invited_Observers  = $('#Invited_Observers').val();
+            entry.DRP_Pre_Proc_conf  = $('#DRP_Pre_Proc_conf').val();
+            entry.DRP_Pre_Bid_conf  =  $('#DRP_Pre_Bid_conf').val();
+            entry.DRP_Eligibility_check  = $('#DRP_Eligibility_check').val();
+            entry.DRP_OOP = $('#DRP_OOP').val();
+            entry.DRP_Bid_Eval = $('#DRP_Bid_Eval').val();
+            entry.DRP_Post_Qual = $('#DRP_Post_Qual').val();
+            entry.DRP_Notice_of_Award  = $('#DRP_Notice_of_Award').val();
+            entry.DRP_Contract_Signing  = $('#DRP_Contract_Signing').val();
+            entry.DRP_Delivery_Accept = $('#DRP_Delivery_Accept').val();
+            entry.Remarks  =$('#Remarks').val();
+            entry.id = parseInt($(this).attr('data-save-id'));
+         if(parseInt($(this).attr('data-id'))==1){
+          $.ajax({
+                  type: "POST",
+                  url: '/save',
+                  data: entry,
+                  success: function(response){
+                    if(response=="OK!"){
+                      alert("ADDED");
+                      $('.form-control').val("");
+                    }
+                  }
+                });
+         }
+         else{
+           $.ajax({
+                  type: "POST",
+                  url: '/save_update',
+                  data: entry,
+                  success: function(response){
+                    if(response=="OK!"){
+                     alert("UPDATED");
+                      window.location='/?sc='+entry.id+'';
+                    }
+                  }
+                });
+           
+         }
+      })
+  	  $.fn.datepicker.defaults.format = "mm/dd/yyyy";
+			$('.datepicker').datepicker({
+       format: 'dd/mm/yyyy',
+        forceParse: false
+      });
+
+</script>
+
+
+
+</html>

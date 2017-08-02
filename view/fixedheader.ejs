@@ -1,0 +1,139 @@
+<html>
+<head>
+<title><%= title %></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+   <link rel="stylesheet" href="/css/fixed_header.css">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+      <div class="pane pane--table1">
+  <div class="pane-hScroll">
+
+
+                <table class="table">
+                    <thead>
+                     <tr>
+                        <th rowspan="2" class = "cells header" style ="width:100px">Code (PAP)</th>
+                        <th rowspan="2" class = "cells header" style ="width:100px">PR #</th> 
+                        <th rowspan="2" class = "cells header" style ="width:100px">PO/JO #</th>
+                        <th rowspan="2" class = "cells header data_cell_name" style ="width:100px">Procurement <br>Program/Project</th>
+                        <th rowspan="2" class = "cells header" style ="width:100px">PMO/<br>End-User</th>
+                        <th rowspan="2" class = "cells header" style ="width:100px">Mode of<br>Procurement</th>
+                        <th colspan="12" rowspan="1" class = "cells header">Actual Procurement Activity</th>
+                        <th rowspan="2" class = "cells header" style ="width:100px">Source of Funds</th>
+                        <th colspan="4" rowspan="1" class = "cells header">ABC (PhP)</th>
+                        <th colspan="4" rowspan="1" class = "cells header">Contract Cost(PhP)</th>
+                        <th rowspan="2" class = "cells header" style ="width:100px">List of Invited<br> Observers</th>
+                        <th colspan="9" rowspan="1" class = "cells header">Date of Receipt of Invitation</th>
+                        <th rowspan="2" class = "cells header" style ="width:100px">Remarks<br>(Explaining changes from the APP)</th>
+                    </tr>
+                  
+                    <tr>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Pre-Proc<br>Conferenc</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Ads/Post<br> of IAEB</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Pre-bid Conf</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Eligibility Check</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Sub/Open of Bids</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Bid Evaluation</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Post Qual</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Notice of Award</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Contract Signing</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Notice to Proceed</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Delivery/ Completion</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Acceptance/ Turnover</th>
+                        
+                        
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Total</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">MOOE</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">CO</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Others</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Total</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">MOOE</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">CO</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Others</th>
+                        
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Pre-Proc Conf</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Pre-bid Conf</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Eligibility Check</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Sub/Open of Bids</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Bid Evaluation</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Post Qual</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Notice of Award</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Contract Signing</th>
+                        <th rowspan="1" class = "cells header data_cell" style ="width:100px">Delivery/ Accept</th>
+                    </tr>
+                    </thead>   
+    </table>
+
+    <div class="pane-vScroll">
+      <table>
+     <tbody>
+                    <% for(var i=0; i<data.length; i++) { %>
+
+                                
+                                <tr class = "row-hover" data-id = '<%= data[i].id  %>'>
+                                    <td class = "cells data_cell"><%= data[i].code_PAP  %></td>
+                                    <td class = "cells data_cell"><%= data[i].pr_no  %></td>
+                                    <td class = "cells data_cell"><%= data[i].PO_JO  %></td> 
+                                    <td class = "cells "><%= data[i].program_proj_name %></td>  
+                                    <td class = "cells data_cell"><%= data[i].end_user   %></td>
+                                    <td class = "cells data_cell"><%= data[i].MOP   %></td>
+                                    <td class = "cells data_cell"><%= data[i].pre_Proc %></td>  
+                                    <td class = "cells data_cell"><%= data[i].ads_post_IAEB %></td>  
+                                    <td class = "cells data_cell"><%= data[i].Pre_bid  %></td>
+                                    <td class = "cells data_cell"><%= data[i].Eligibility_Check %></td>  
+                                    <td class = "cells data_cell"><%= data[i].oob  %></td>
+                                    <td class = "cells data_cell"><%= data[i].Bid_Eval %></td>  
+                                    <td class = "cells data_cell"><%= data[i].Post_Qual %></td>  
+                                    <td class = "cells data_cell"><%= data[i].Notice_of_Award  %></td>
+                                    <td class = "cells data_cell"><%= data[i].Contract_Signing   %></td>
+                                    <td class = "cells data_cell"><%= data[i].Notice_To_Proceed   %></td>
+                                    <td class = "cells data_cell"><%= data[i].Del_Completion %></td>
+                                    <td class = "cells data_cell"><%= data[i].Acceptance_date  %></td>
+                                    <td class = "cells data_cell"><%= data[i].Source_of_Funds   %></td>
+                                    <td class = "cells data_cell"><%= data[i].ABC   %></td>
+                                    <td class = "cells data_cell"><%= data[i].ABC_MOOE  %></td>
+                                    <td class = "cells data_cell"><%= data[i].ABC_CO   %></td>
+                                    <td class = "cells data_cell"><%= data[i].ABC_Others  %></td>
+                                    <td class = "cells data_cell"><%= data[i].Contract_Cost  %></td> 
+                                    <td class = "cells data_cell"><%= data[i].Contract_Cost_MOOE  %></td>
+                                    <td class = "cells data_cell"><%= data[i].Contract_Cost_CO  %></td>
+                                    <td class = "cells data_cell"><%= data[i].Contract_Cost_Others   %></td>
+                                    <td class = "cells data_cell"><%= data[i].Invited_Observers  %></td>
+                                    <td class = "cells data_cell"><%= data[i].DRP_Pre_Proc_conf   %></td>
+                                    <td class = "cells data_cell"><%= data[i].DRP_Pre_Bid_conf  %></td>
+                                    <td class = "cells data_cell"><%= data[i].DRP_Eligibility_check   %></td>
+                                    <td class = "cells data_cell"><%= data[i].DRP_OOP  %></td>
+                                    <td class = "cells data_cell"><%= data[i].DRP_Bid_Eval  %></td>
+                                    <td class = "cells data_cell"><%= data[i].DRP_Post_Qual  %></td>
+                                    <td class = "cells data_cell"><%= data[i].DRP_Notice_of_Award   %></td>
+                                    <td class = "cells data_cell"><%= data[i].DRP_Contract_Signing   %></td>
+                                    <td class = "cells data_cell"><%= data[i].DRP_Delivery_Accept  %></td>
+                                    <td class = "cells data_cell"><%= data[i].Remarks   %></td>
+                                </tr>
+                    <% } %>
+                    </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+<script>
+  // Example 1
+  $('.pane-hScroll').scroll(function() {
+    $('.pane-vScroll').width($('.pane-hScroll').width() + $('.pane-hScroll').scrollLeft());
+  });
+
+</script>
+<script src="/jquery.js"></script>
+
+</html>

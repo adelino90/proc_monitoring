@@ -1,0 +1,97 @@
+.cells{
+    border:1px solid #ddd;
+    font-size: 12px;
+    text-align: center;
+}
+#header-fixed{
+    position: fixed;
+    top: 0px; display:none;
+    background-color:white;
+    
+}
+.row-hover:hover{
+background: #FFFFCC;
+cursor:pointer;
+font-weight: bold;
+}
+.cell_hover{
+    background: #FFFFCC;
+    font-weight: bold;
+}
+
+.no-pads{
+    margin:0;
+}
+
+.header_title{
+    margin-left: 300px;
+}
+
+.data_cell{
+    width:30px;
+    
+    text-align: center;
+}
+
+table {
+   
+  border-collapse: collapse;
+  background: white;
+  table-layout: fixed;
+   width: 3400px;
+}
+thead{
+    border: 1px solid #ddd;
+}
+th, td {
+
+  border: 1px solid #ddd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.pane {
+  background: #eee;
+}
+.pane-hScroll {
+  overflow: auto;
+  width: 3400px;
+   background: #eee;
+}
+
+.pane-vScroll {
+  
+  overflow-y: auto;
+  overflow-x: hidden;
+  height:800px;
+  background: #eee;
+    direction: rtl;
+
+}
+.pane-vScroll > table {
+    direction: ltr;
+}
+.program_name{
+    width: 200px;
+    min-height: 140px;
+}
+.small_width{
+    width: 20px;
+}
+
+#search {
+    width: 230px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 3px 0px 6px 4px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+

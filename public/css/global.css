@@ -1,0 +1,16 @@
+p.normal {
+    font-weight: normal;
+}
+
+p.thick {
+    font-weight: bold;
+}
+
+p.thicker {
+    font-weight: 900;
+}
+
+.blue{
+    color:#3390FF;
+    cursor:pointer;
+}
