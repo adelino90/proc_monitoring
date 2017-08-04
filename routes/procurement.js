@@ -99,7 +99,7 @@ module.exports.controller = function(app) {
                             
               }
                               if(html=="")
-                                html=' <tr class = "row-hover procurement_data" data-toggle="modal" data-target="#myModal"><td class = "cells data_cell" colspan="37"><b>No Results Found</b></td><tr>'
+                                html=' <tr class = "row-hover procurement_data" data-toggle="modal" data-target="#myModal"><td class = "cells data_cell" colspan="37" style ="text-align: left;"><b>No Results Found</b></td><tr>'
 
                               res.send(html);
           
