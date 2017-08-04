@@ -434,13 +434,13 @@
 })
  $('#search').keypress(function(e) {
     if(e.which == 13) {
+      $('#record_table > tbody').html('<tr class = "row-hover procurement_data" data-toggle="modal" data-target="#myModal"><td class = "cells data_cell" colspan="37"  ><img src="/images/loader_gif.gif" align="left"></td><tr>');
       search_str = $('#search').val();
        $.post("/search",
           {
               search : search_str
           },
           function(data, status){
-              console.log(data);
               $('#record_table > tbody').html(data);
                  $(".procurement_data").dblclick(function(){
                         $('#record_table > tbody >tr').removeClass('cell_hover');
