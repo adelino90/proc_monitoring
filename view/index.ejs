@@ -438,7 +438,7 @@
 })
  $('#search').keypress(function(e) {
   
-    if(e.which == 13 || $('#search').val()=="") {
+    if(e.which == 13) {
       $(".overlay").show();
       //$('#record_table > tbody').html('<tr class = "row-hover procurement_data" data-toggle="modal" data-target="#myModal"><td class = "cells data_cell" colspan="37"  ><img src="/images/loader_gif.gif" align="left"></td><tr>');
       search_str = $('#search').val();
