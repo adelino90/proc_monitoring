@@ -30,12 +30,26 @@ module.exports.controller = function(app) {
             .execute('get_procurement_by_id', (err, result) => {
 			        // ... 
         
-              res.render('add',{title:"Add Procurement Monitoring",data : result.recordset[0],mode : 2});
+
+                 const request = new sql.Request(gpool)
+                    .execute('get_procurement_type', (err, presult) => {
+                    ptype = presult.recordset;
+                    res.render('add',{title:"Add Procurement Monitoring",data : result.recordset[0],mode : 2,ptype:ptype});
+			           })
+              
           
 			  })
      })
      app.get('/add', function(req, res, next) {
-            res.render('add',{title:"Add Procurement Monitoring",mode:1});
+
+
+         	 const request = new sql.Request(gpool)
+            .execute('get_procurement_type', (err, result) => {
+			        // ... 
+                ptype = result.recordset;
+                res.render('add',{title:"Add Procurement Monitoring",mode:1,ptype:ptype});
+			    })
+           
 
      });
     
@@ -47,16 +61,60 @@ module.exports.controller = function(app) {
      }
     app.post('/search', function(req, res, next) {
             var search_str = req.body.search;
-              sql.close();
+            var html="";   
+            sql.close();
              const request = new sql.Request(gpool)
+             .input('ptype', sql.Int, 2)
              .input('search_str', sql.NVarChar, search_str)
              .execute('procurement_search', (err, result) => {
-			        // ... 
+              // ...      
              record_len = result.recordset.length;
-             html="";
              data = result.recordset;
-              for(i=0;i<record_len;i++){
-                  html=html+' <tr class = "row-hover procurement_data" data-id = '+ nullvalidation(data[i].id) +'  data-toggle="modal" data-target="#myModal">\
+
+              html = html+` <tr class = "row-hover procurement_data" data-id = 'none'>\
+                                      <td class = "cellsh small_width"></td>\
+                                      <td class = "cellsh small_width"></td>\
+                                      <td class = "cellsh small_width"></td> \
+                                      <td class = "cellsh program_name no-pads"><b>A. PUBLIC BIDDINGS</b></td>  \
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>  \
+                                      <td class = "cellsh data_cell"></td>  \
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td> \ 
+                                      <td class = "cellsh data_cell"></td>  \
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td> \
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                  </tr>
+                                  `;
+
+                  for(i=0;i<record_len;i++){
+                                html=html+' <tr class = "row-hover procurement_data" data-id = '+ nullvalidation(data[i].id) +'  data-toggle="modal" data-target="#myModal">\
                                     <td class = "cells small_width">'+ nullvalidation(data[i].code_PAP) +'</td>\
                                     <td class = "cells small_width">'+ nullvalidation(data[i].pr_no) +'</td>\
                                     <td class = "cells small_width">'+ nullvalidation(data[i].PO_JO) +'</td>\
@@ -98,10 +156,104 @@ module.exports.controller = function(app) {
                                 </tr>';
                             
               }
-                              if(html=="")
-                                html=' <tr class = "row-hover procurement_data" data-toggle="modal" data-target="#myModal"><td class = "cells data_cell" colspan="37" style ="text-align: left;"><b>No Results Found</b></td><tr>'
 
-                              res.send(html);
+                const request1 = new sql.Request(gpool)
+                .input('ptype', sql.Int, 1)
+                .input('search_str', sql.NVarChar, search_str)
+                .execute('procurement_search', (err, result2) => {
+
+                  record_len2 = result2.recordset.length;
+                  data2 = result2.recordset;
+                        html = html+` <tr class = "row-hover procurement_data" data-id = 'none'>\
+                                      <td class = "cellsh small_width"></td>\
+                                      <td class = "cellsh small_width"></td>\
+                                      <td class = "cellsh small_width"></td> \
+                                      <td class = "cellsh program_name no-pads"><b>B. ALTERNATIVE MODE OF PROCUREMENT</b></td>  \
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>  \
+                                      <td class = "cellsh data_cell"></td>  \
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td> \ 
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td> \ 
+                                      <td class = "cellsh data_cell"></td>  \
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td> \
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                  </tr>`;
+
+                  for(i=0;i<record_len2;i++){
+                    html=html+' <tr class = "row-hover procurement_data" data-id = '+ nullvalidation(data2[i].id) +'  data-toggle="modal" data-target="#myModal">\
+                                      <td class = "cells small_width">'+ nullvalidation(data2[i].code_PAP) +'</td>\
+                                      <td class = "cells small_width">'+ nullvalidation(data2[i].pr_no) +'</td>\
+                                      <td class = "cells small_width">'+ nullvalidation(data2[i].PO_JO) +'</td>\
+                                      <td class = "cells program_name no-pads">'+ nullvalidation(data2[i].program_proj_name)+'</td>  \
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].end_user)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].MOP)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].pre_Proc) +'</td>  \
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].ads_post_IAEB)+'</td>  \
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Pre_bid) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Eligibility_Check)+'</td>  \
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].oob) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Bid_Eval)+'</td>  \
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Post_Qual)+'</td>  \
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Notice_of_Award) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Contract_Signing)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Notice_To_Proceed)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Del_Completion)+'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Acceptance_date) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Source_of_Funds)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].ABC)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].ABC_MOOE) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].ABC_CO)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].ABC_Others) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Contract_Cost) +'</td> \
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Contract_Cost_MOOE) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Contract_Cost_CO) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Contract_Cost_Others)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Invited_Observers) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].DRP_Pre_Proc_conf)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].DRP_Pre_Bid_conf) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].DRP_Eligibility_check)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].DRP_OOP) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].DRP_Bid_Eval) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].DRP_Post_Qual) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].DRP_Notice_of_Award)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].DRP_Contract_Signing) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].DRP_Delivery_Accept) +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Remarks)  +'</td>\
+                                  </tr>';
+                              
+                  }
+                                  if(record_len2 == 0  && record_len ==0)
+                                    html=' <tr class = "row-hover procurement_data" data-id = "none"><td class = "cells data_cell" colspan="37" style ="text-align: left;"><b>No Results Found</b></td><tr>'
+
+                                  res.send(html);
+              })
+            
           
 			  })
      });
@@ -109,7 +261,9 @@ module.exports.controller = function(app) {
 
 
      app.post('/save',function(req,res,next){
-            sql.close();
+             var d = new Date();
+             var date_save = d.getMonth()+1 +'/'+d.getDay()+'/'+d.getFullYear();
+             sql.close();
 		      	 const request = new sql.Request(gpool)
 			      .input('code_PAP', sql.NVarChar, req.body.code_PAP)
 			      .input('pr_no', sql.NVarChar, req.body.pr_no)
@@ -149,6 +303,8 @@ module.exports.controller = function(app) {
             .input('DRP_Contract_Signing', sql.NVarChar,  convertDate(req.body.DRP_Contract_Signing))
             .input('DRP_Delivery_Accept', sql.NVarChar,  convertDate(req.body.DRP_Delivery_Accept))
             .input('Remarks', sql.NVarChar, req.body.Remarks)
+            .input('date_today', sql.NVarChar, date_save)
+            .input('ptype', sql.Int, req.body.ptype)
             .execute('insert_procurement', (err, result) => {
 			        // ... 
               if(!err)
@@ -202,6 +358,7 @@ module.exports.controller = function(app) {
             .input('DRP_Contract_Signing', sql.NVarChar,  convertDate(req.body.DRP_Contract_Signing))
             .input('DRP_Delivery_Accept', sql.NVarChar,  convertDate(req.body.DRP_Delivery_Accept))
             .input('Remarks', sql.NVarChar, req.body.Remarks)
+            .input('ptype', sql.Int, req.body.ptype)
             .execute('save_update_procurement', (err, result) => {
 			        // ... 
               if(!err)

@@ -2,6 +2,10 @@
     border:1px solid #ddd;
     font-size: 12px;
     text-align: center;
+   
+}
+.cellsh{
+
 }
 #header-fixed{
     position: fixed;
@@ -93,5 +97,9 @@ th, td {
     padding: 3px 0px 6px 4px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
+}
+.divider{
+     width: 3400px;
+
 }
 

@@ -4,6 +4,7 @@
 <title><%= title %></title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/images/proc.png" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="/css/add.css">
@@ -17,6 +18,24 @@
     <div class = "row">
         
               <div class="col-md-6">
+                   <div class="form-group">
+                      <label>Procurement Type:</label>
+                    <select class="form-control" id="ptype">
+                        <% if(locals.data){ %>
+                            <% if(data.ptype_id) %>
+                                <option disabled selected value> -- select an option -- </option>
+                        <%  } else {%>
+                               <option disabled selected value> -- select an option -- </option>
+                        <%  } %>
+                        <% for(var i=0; i<ptype.length; i++) { %>
+                        
+                           
+                             
+                            <option value = '<%= ptype[i].id %>' <%= (locals.data && ptype[i].id == data.ptype_id  ? 'selected' : '') %>><%= ptype[i].description %></option>
+            
+                      <%  } %>
+                    </select>
+                  </div>
                   <div class="form-group">
                     <label for="email">Code (PAP)	:</label>
                     <input type="text" class="form-control" id="code_PAP" value ='<%= (locals.data ? data.code_PAP : '') %>'>
@@ -182,6 +201,8 @@
                           <label>Delivery/ Completion:</label>
                           <input class="datepicker form-control" id="DRP_Delivery_Accept" value ='<%= (locals.data ? data.DRP_Delivery_Accept : '') %>' data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
                       </div>
+
+                     
                   </div> 
                   <div class="form-group">
                     <label>Remarks:</label>
@@ -238,33 +259,39 @@
             entry.DRP_Delivery_Accept = $('#DRP_Delivery_Accept').val();
             entry.Remarks  =$('#Remarks').val();
             entry.id = parseInt($(this).attr('data-save-id'));
-         if(parseInt($(this).attr('data-id'))==1){
-          $.ajax({
-                  type: "POST",
-                  url: '/save',
-                  data: entry,
-                  success: function(response){
-                    if(response=="OK!"){
-                      alert("ADDED");
-                      $('.form-control').val("");
-                    }
-                  }
-                });
-         }
-         else{
-           $.ajax({
-                  type: "POST",
-                  url: '/save_update',
-                  data: entry,
-                  success: function(response){
-                    if(response=="OK!"){
-                     alert("UPDATED");
-                      window.location='/?sc='+entry.id+'';
-                    }
-                  }
-                });
-           
-         }
+            entry.ptype = ($('#ptype').find(":selected").val() != "" ? $('#ptype').find(":selected").val() : undefined);
+          if(!$("#ptype").val()){
+            $("#ptype").css("border-color","rgb(255, 0, 0)")
+          }else{
+                if(parseInt($(this).attr('data-id'))==1){
+                  $.ajax({
+                          type: "POST",
+                          url: '/save',
+                          data: entry,
+                          success: function(response){
+                            if(response=="OK!"){
+                              alert("ADDED");
+                              $('.form-control').val("");
+                            }
+                          }
+                        });
+                }
+                else{
+                  $.ajax({
+                          type: "POST",
+                          url: '/save_update',
+                          data: entry,
+                          success: function(response){
+                            if(response=="OK!"){
+                            alert("UPDATED");
+                              window.location='/?sc='+entry.id+'';
+                            }
+                          }
+                        });
+                  
+                }
+        }
+
       })
   	  $.fn.datepicker.defaults.format = "mm/dd/yyyy";
 			$('.datepicker').datepicker({

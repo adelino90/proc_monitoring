@@ -4,6 +4,7 @@
 <title><%= title %></title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/images/proc.png" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -340,49 +341,172 @@
 </div>
       <table id = "record_table">
                   <tbody>
-       
-                      <% for(var i=0; i<data.length; i++) { %>
+     <tr class = "row-hover procurement_data" data-id = 'none'>
+                                      <td class = "cellsh small_width"></td>
+                                      <td class = "cellsh small_width"></td>
+                                      <td class = "cellsh small_width"></td> 
+                                      <td class = "cellsh program_name no-pads"><b>B. PUBLIC BIDDINGS</b></td>  
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>  
+                                      <td class = "cellsh data_cell"></td>  
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>  
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>  
+                                      <td class = "cellsh data_cell"></td>  
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td> 
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                  </tr>
+                      <% for(var i=0; i<data1.length; i++) { %>
 
                                   
-                                  <tr class = "row-hover procurement_data" data-id = '<%= data[i].id  %>'  data-toggle="modal" data-target="#myModal">
-                                      <td class = "cells small_width"><%= data[i].code_PAP  %></td>
-                                      <td class = "cells small_width"><%= data[i].pr_no  %></td>
-                                      <td class = "cells small_width"><%= data[i].PO_JO  %></td> 
-                                      <td class = "cells program_name no-pads"><%= data[i].program_proj_name %></td>  
-                                      <td class = "cells data_cell"><%= data[i].end_user   %></td>
-                                      <td class = "cells data_cell"><%= data[i].MOP   %></td>
-                                      <td class = "cells data_cell"><%= data[i].pre_Proc %></td>  
-                                      <td class = "cells data_cell"><%= data[i].ads_post_IAEB %></td>  
-                                      <td class = "cells data_cell"><%= data[i].Pre_bid  %></td>
-                                      <td class = "cells data_cell"><%= data[i].Eligibility_Check %></td>  
-                                      <td class = "cells data_cell"><%= data[i].oob  %></td>
-                                      <td class = "cells data_cell"><%= data[i].Bid_Eval %></td>  
-                                      <td class = "cells data_cell"><%= data[i].Post_Qual %></td>  
-                                      <td class = "cells data_cell"><%= data[i].Notice_of_Award  %></td>
-                                      <td class = "cells data_cell"><%= data[i].Contract_Signing   %></td>
-                                      <td class = "cells data_cell"><%= data[i].Notice_To_Proceed   %></td>
-                                      <td class = "cells data_cell"><%= data[i].Del_Completion %></td>
-                                      <td class = "cells data_cell"><%= data[i].Acceptance_date  %></td>
-                                      <td class = "cells data_cell"><%= data[i].Source_of_Funds   %></td>
-                                      <td class = "cells data_cell"><%= data[i].ABC   %></td>
-                                      <td class = "cells data_cell"><%= data[i].ABC_MOOE  %></td>
-                                      <td class = "cells data_cell"><%= data[i].ABC_CO   %></td>
-                                      <td class = "cells data_cell"><%= data[i].ABC_Others  %></td>
-                                      <td class = "cells data_cell"><%= data[i].Contract_Cost  %></td> 
-                                      <td class = "cells data_cell"><%= data[i].Contract_Cost_MOOE  %></td>
-                                      <td class = "cells data_cell"><%= data[i].Contract_Cost_CO  %></td>
-                                      <td class = "cells data_cell"><%= data[i].Contract_Cost_Others   %></td>
-                                      <td class = "cells data_cell"><%= data[i].Invited_Observers  %></td>
-                                      <td class = "cells data_cell"><%= data[i].DRP_Pre_Proc_conf   %></td>
-                                      <td class = "cells data_cell"><%= data[i].DRP_Pre_Bid_conf  %></td>
-                                      <td class = "cells data_cell"><%= data[i].DRP_Eligibility_check   %></td>
-                                      <td class = "cells data_cell"><%= data[i].DRP_OOP  %></td>
-                                      <td class = "cells data_cell"><%= data[i].DRP_Bid_Eval  %></td>
-                                      <td class = "cells data_cell"><%= data[i].DRP_Post_Qual  %></td>
-                                      <td class = "cells data_cell"><%= data[i].DRP_Notice_of_Award   %></td>
-                                      <td class = "cells data_cell"><%= data[i].DRP_Contract_Signing   %></td>
-                                      <td class = "cells data_cell"><%= data[i].DRP_Delivery_Accept  %></td>
-                                      <td class = "cells data_cell"><%= data[i].Remarks   %></td>
+                                  <tr class = "row-hover procurement_data" data-id = '<%= data1[i].id  %>'  data-toggle="modal" data-target="#myModal">
+                                      <td class = "cells small_width"><%= data1[i].code_PAP  %></td>
+                                      <td class = "cells small_width"><%= data1[i].pr_no  %></td>
+                                      <td class = "cells small_width"><%= data1[i].PO_JO  %></td> 
+                                      <td class = "cells program_name no-pads"><%= data1[i].program_proj_name %></td>  
+                                      <td class = "cells data_cell"><%= data1[i].end_user   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].MOP   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].pre_Proc %></td>  
+                                      <td class = "cells data_cell"><%= data1[i].ads_post_IAEB %></td>  
+                                      <td class = "cells data_cell"><%= data1[i].Pre_bid  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Eligibility_Check %></td>  
+                                      <td class = "cells data_cell"><%= data1[i].oob  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Bid_Eval %></td>  
+                                      <td class = "cells data_cell"><%= data1[i].Post_Qual %></td>  
+                                      <td class = "cells data_cell"><%= data1[i].Notice_of_Award  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Contract_Signing   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Notice_To_Proceed   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Del_Completion %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Acceptance_date  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Source_of_Funds   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].ABC   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].ABC_MOOE  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].ABC_CO   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].ABC_Others  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Contract_Cost  %></td> 
+                                      <td class = "cells data_cell"><%= data1[i].Contract_Cost_MOOE  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Contract_Cost_CO  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Contract_Cost_Others   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Invited_Observers  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].DRP_Pre_Proc_conf   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].DRP_Pre_Bid_conf  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].DRP_Eligibility_check   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].DRP_OOP  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].DRP_Bid_Eval  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].DRP_Post_Qual  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].DRP_Notice_of_Award   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].DRP_Contract_Signing   %></td>
+                                      <td class = "cells data_cell"><%= data1[i].DRP_Delivery_Accept  %></td>
+                                      <td class = "cells data_cell"><%= data1[i].Remarks   %></td>
+                                  </tr>
+                      <% } %>
+                  <tr class = "row-hover procurement_data" data-id = 'none'>
+                                      <td class = "cellsh small_width"></td>
+                                      <td class = "cellsh small_width"></td>
+                                      <td class = "cellsh small_width"></td> 
+                                      <td class = "cellsh program_name no-pads"><b>B. ALTERNATIVE MODE OF PROCUREMENT</b></td>  
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>  
+                                      <td class = "cellsh data_cell"></td>  
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>  
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>  
+                                      <td class = "cellsh data_cell"></td>  
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td> 
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                      <td class = "cellsh data_cell"></td>
+                                  </tr>
+                      <% for(var i=0; i<data2.length; i++) { %>
+
+                                  
+                                  <tr class = "row-hover procurement_data" data-id = '<%= data2[i].id  %>'  data-toggle="modal" data-target="#myModal">
+                                      <td class = "cells small_width"><%= data2[i].code_PAP  %></td>
+                                      <td class = "cells small_width"><%= data2[i].pr_no  %></td>
+                                      <td class = "cells small_width"><%= data2[i].PO_JO  %></td> 
+                                      <td class = "cells program_name no-pads"><%= data2[i].program_proj_name %></td>  
+                                      <td class = "cells data_cell"><%= data2[i].end_user   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].MOP   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].pre_Proc %></td>  
+                                      <td class = "cells data_cell"><%= data2[i].ads_post_IAEB %></td>  
+                                      <td class = "cells data_cell"><%= data2[i].Pre_bid  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Eligibility_Check %></td>  
+                                      <td class = "cells data_cell"><%= data2[i].oob  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Bid_Eval %></td>  
+                                      <td class = "cells data_cell"><%= data2[i].Post_Qual %></td>  
+                                      <td class = "cells data_cell"><%= data2[i].Notice_of_Award  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Contract_Signing   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Notice_To_Proceed   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Del_Completion %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Acceptance_date  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Source_of_Funds   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].ABC   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].ABC_MOOE  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].ABC_CO   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].ABC_Others  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Contract_Cost  %></td> 
+                                      <td class = "cells data_cell"><%= data2[i].Contract_Cost_MOOE  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Contract_Cost_CO  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Contract_Cost_Others   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Invited_Observers  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].DRP_Pre_Proc_conf   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].DRP_Pre_Bid_conf  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].DRP_Eligibility_check   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].DRP_OOP  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].DRP_Bid_Eval  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].DRP_Post_Qual  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].DRP_Notice_of_Award   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].DRP_Contract_Signing   %></td>
+                                      <td class = "cells data_cell"><%= data2[i].DRP_Delivery_Accept  %></td>
+                                      <td class = "cells data_cell"><%= data2[i].Remarks   %></td>
                                   </tr>
                       <% } %>
                     </tbody>
@@ -453,6 +577,7 @@
                         $('#record_table > tbody >tr').removeClass('cell_hover');
                         var data_id = $(this).attr('data-id');
                         $(this).addClass("cell_hover")
+                        if(data_id!="none")
                         window.location = '/view_procurement/'+data_id+'';
                 });
             $(".procurement_data").click(function(){
@@ -473,6 +598,7 @@
              $('#record_table > tbody >tr').removeClass('cell_hover');
              var data_id = $(this).attr('data-id');
              $(this).addClass("cell_hover")
+             if(data_id!="none")
              window.location = '/view_procurement/'+data_id+'';
     });
     $(".procurement_data").click(function(){
