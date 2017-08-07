@@ -14,7 +14,7 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootstrap-datepicker.min.js"></script>
-
+<script src="/js/moment.js"></script>
 </head>
 <body>
 
@@ -36,12 +36,13 @@
         <div class="row">
             <div class="col-md-12 form-group form-inline">
                   <label for="email">Date	:</label>
-                  <input class="datepicker form-control" id="date"  data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
+                  <input class="datepicker form-control" id="input_date"  data-date-format="MM/DD/YYYY"  placeholder="MM/DD/YYYY">
               </div>
          </div>
 
         </div>
         <div class="modal-footer">
+          <button type="button" id="date_save" class="btn btn-info" data-id="0" data-dismiss="modal">Save</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -266,7 +267,7 @@
             <div class="page-header text-center">
 
                     <h3 class="text-right">TECHNICAL EDUCATION AND SKILLS DEVELOPMENT AUTHORITY </h3> 
-                      <h5 class="text-center header_title">Procurement Monitoring Report for the period <span class="blue" id="from" title="select a date" data-toggle="modal" data-target="#date_picker">January 1 ,2017</span> to <span class="blue" id="to" data-toggle="modal" data-target="#date_picker" title="select a date">June 30, 2017</span>  </h5>
+                      <h5 class="text-center header_title">Procurement Monitoring Report for the period <span class="blue" id="from" title="select a date" data-toggle="modal" data-target="#date_picker"><%= datefrom   %></span> to <span class="blue" id="to" data-toggle="modal" data-target="#date_picker" title="select a date"><%= dateto   %></span>  </h5>
              </div>
     </div>
 </div>
@@ -537,6 +538,7 @@
     }
 };
 
+  
    $(document).ready(function(){
      $(".overlay").hide();
        var container = $('.pane-vScroll'),
@@ -552,40 +554,27 @@
              $('tr[data-id ="'+last+'"]').addClass('cell_hover');
 
         }
-      $.fn.datepicker.defaults.format = "mm/dd/yyyy";
+    /*  $.fn.datepicker.defaults.format = "mm/dd/yyyy";
 			$('.datepicker').datepicker({
         format: 'dd/mm/yyyy',
         forceParse: false
-      });
+      });*/
 
 
 })
  $('#search').keypress(function(e) {
   
     if(e.which == 13) {
-      $(".overlay").show();
-      //$('#record_table > tbody').html('<tr class = "row-hover procurement_data" data-toggle="modal" data-target="#myModal"><td class = "cells data_cell" colspan="37"  ><img src="/images/loader_gif.gif" align="left"></td><tr>');
-      search_str = $('#search').val();
-       $.post("/search",
-          {
-              search : search_str
-          },
-          function(data, status){
-            $(".overlay").hide();
-              $('#record_table > tbody').html(data);
-                 $(".procurement_data").dblclick(function(){
-                        $('#record_table > tbody >tr').removeClass('cell_hover');
-                        var data_id = $(this).attr('data-id');
-                        $(this).addClass("cell_hover")
-                        if(data_id!="none")
-                        window.location = '/view_procurement/'+data_id+'';
-                });
-            $(".procurement_data").click(function(){
-                    $('#record_table > tbody >tr').removeClass('cell_hover');
-                    var data_id = $(this).attr('data-id');
-                    $(this).addClass("cell_hover")
-            });
-          });
+        var search_str = $('#search').val();
+        var to = new Date($("#to").text()); 
+        var from = new Date($("#from").text()); 
+        from = new Date(from);
+        to = new Date(to);
+        from = moment(from).format('L')
+        to = moment(to).format('L')
+        if(from!="Invalid date" && to !="Invalid date")
+        filter(from,to,search_str);
+        else alert("Invalid Date")
     }
 });
 
@@ -610,5 +599,63 @@
     $('.pane-vScroll').width($('.pane-hScroll').width() + $('.pane-hScroll').scrollLeft());
   });
 
+    $("#from").click(function(){
+      date = $("#from").text();
+      date = new Date(date)
+      $("#input_date").val(moment(date).format('L'));
+       $("#date_save").attr('data-id','from');
+      
+    });
+    $("#to").click(function(){
+      date = $("#to").text();
+      date = new Date(date)
+      $("#input_date").val(moment(date).format('L'));
+      $("#date_save").attr('data-id','to');
+      
+    });
+     $("#date_save").click(function(){
+        var search_str = $('#search').val();
+        var temp_date= $("#input_date").val();
+        temp_date = new Date(temp_date)
+        temp_date = moment(temp_date).format('LL');
+        if($(this).attr('data-id')=="from" && temp_date != "Invalid date"){
+          
+          var to = new Date($("#to").text()); 
+          filter(moment(temp_date).format('L'),moment(to).format('L'),search_str)
+           $("#from").text(temp_date);
+        }
+        else if($(this).attr('data-id')=="to" && temp_date != "Invalid date"){
+           var from = new Date($("#from").text()); 
+           filter(moment(from).format('L'),moment(temp_date).format('L'),search_str)
+           $("#to").text(temp_date); 
+        }
+     });
+      function filter(date_from,date_to,search_str){
+      $(".overlay").show();
+      //$('#record_table > tbody').html('<tr class = "row-hover procurement_data" data-toggle="modal" data-target="#myModal"><td class = "cells data_cell" colspan="37"  ><img src="/images/loader_gif.gif" align="left"></td><tr>');
+      search_str = $('#search').val();
+       $.post("/search",
+          {
+              search : search_str,
+              from : date_from,
+              to : date_to
+          },
+          function(data, status){
+            $(".overlay").hide();
+              $('#record_table > tbody').html(data);
+                 $(".procurement_data").dblclick(function(){
+                        $('#record_table > tbody >tr').removeClass('cell_hover');
+                        var data_id = $(this).attr('data-id');
+                        $(this).addClass("cell_hover")
+                        if(data_id!="none")
+                        window.location = '/view_procurement/'+data_id+'';
+                });
+            $(".procurement_data").click(function(){
+                    $('#record_table > tbody >tr').removeClass('cell_hover');
+                    var data_id = $(this).attr('data-id');
+                    $(this).addClass("cell_hover")
+            });
+          });
+      }
 </script>
 </html>

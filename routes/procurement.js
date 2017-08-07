@@ -61,11 +61,15 @@ module.exports.controller = function(app) {
      }
     app.post('/search', function(req, res, next) {
             var search_str = req.body.search;
+            var from = req.body.from;
+            var to = req.body.to;
             var html="";   
             sql.close();
              const request = new sql.Request(gpool)
              .input('ptype', sql.Int, 2)
              .input('search_str', sql.NVarChar, search_str)
+            .input('from', sql.NVarChar, from)
+            .input('to', sql.NVarChar, to)
              .execute('procurement_search', (err, result) => {
               // ...      
              record_len = result.recordset.length;
@@ -159,6 +163,8 @@ module.exports.controller = function(app) {
 
                 const request1 = new sql.Request(gpool)
                 .input('ptype', sql.Int, 1)
+                .input('from', sql.NVarChar, from)
+                .input('to', sql.NVarChar, to)
                 .input('search_str', sql.NVarChar, search_str)
                 .execute('procurement_search', (err, result2) => {
 
