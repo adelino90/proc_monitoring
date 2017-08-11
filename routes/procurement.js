@@ -33,11 +33,24 @@ module.exports.controller = function(app) {
 
                  const request = new sql.Request(gpool)
                     .execute('get_procurement_type', (err, presult) => {
-                    ptype = presult.recordset;
-                    res.render('add',{title:"Add Procurement Monitoring",data : result.recordset[0],mode : 2,ptype:ptype});
-			           })
-              
-          
+
+                        const request1 = new sql.Request(gpool)
+                        .query('Select * from Mode_of_Proc', (err, modes) => {
+
+                            const fund_sql = new sql.Request(gpool)
+                                .query('Select * from Source_Of_Funds', (err, sourceOF) => {
+                                    ptype = presult.recordset;
+                                    modes = modes.recordset;
+                                    source_of_fund = sourceOF.recordset;
+                                    console.log();
+                                    res.render('add',{title:"Add Procurement Monitoring",data : result.recordset[0],mode : 2,ptype:ptype,modes:modes,source_of_fund:source_of_fund});
+                                })
+                        })
+                 
+                  })
+                             
+
+
 			  })
      })
      app.get('/add', function(req, res, next) {
@@ -45,9 +58,24 @@ module.exports.controller = function(app) {
 
          	 const request = new sql.Request(gpool)
             .execute('get_procurement_type', (err, result) => {
-			        // ... 
-                ptype = result.recordset;
-                res.render('add',{title:"Add Procurement Monitoring",mode:1,ptype:ptype});
+              // ...   
+                    const mode_sql = new sql.Request(gpool)
+                    .query('Select * from Mode_of_Proc', (err, modes) => {
+
+                        const fund_sql = new sql.Request(gpool)
+                          .query('Select * from Source_Of_Funds', (err, sourceOF) => {
+
+
+                            ptype = result.recordset;
+                            modes = modes.recordset;
+                            source_of_fund = sourceOF.recordset;
+
+                            res.render('add',{title:"Add Procurement Monitoring",mode:1,ptype:ptype,modes:modes,source_of_fund:source_of_fund});
+                     
+                          })
+                    
+                    
+                    })
 			    })
            
 
@@ -124,7 +152,7 @@ module.exports.controller = function(app) {
                                     <td class = "cells small_width">'+ nullvalidation(data[i].PO_JO) +'</td>\
                                     <td class = "cells program_name no-pads">'+ nullvalidation(data[i].program_proj_name)+'</td>  \
                                     <td class = "cells data_cell">'+ nullvalidation(data[i].end_user)  +'</td>\
-                                    <td class = "cells data_cell">'+ nullvalidation(data[i].MOP)  +'</td>\
+                                    <td class = "cells data_cell">'+ nullvalidation(data[i].Mode)  +'</td>\
                                     <td class = "cells data_cell">'+ nullvalidation(data[i].pre_Proc) +'</td>  \
                                     <td class = "cells data_cell">'+ nullvalidation(data[i].ads_post_IAEB)+'</td>  \
                                     <td class = "cells data_cell">'+ nullvalidation(data[i].Pre_bid) +'</td>\
@@ -170,6 +198,14 @@ module.exports.controller = function(app) {
 
                   record_len2 = result2.recordset.length;
                   data2 = result2.recordset;
+                   const request3 = new sql.Request(gpool)
+                        .input('from', sql.NVarChar, from)
+                        .input('to', sql.NVarChar, to)
+                        .input('search_str', sql.NVarChar, search_str)
+                        .input('ptype', sql.Int, 1)
+                        .execute('get_total_ABC_CC', (err, result3) => {
+
+                          data3 = result3.recordset;
                         html = html+` <tr class = "row-hover procurement_data" data-id = 'none'>\
                                       <td class = "cellsh small_width"></td>\
                                       <td class = "cellsh small_width"></td>\
@@ -218,7 +254,7 @@ module.exports.controller = function(app) {
                                       <td class = "cells small_width">'+ nullvalidation(data2[i].PO_JO) +'</td>\
                                       <td class = "cells program_name no-pads">'+ nullvalidation(data2[i].program_proj_name)+'</td>  \
                                       <td class = "cells data_cell">'+ nullvalidation(data2[i].end_user)  +'</td>\
-                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].MOP)  +'</td>\
+                                      <td class = "cells data_cell">'+ nullvalidation(data2[i].Mode)  +'</td>\
                                       <td class = "cells data_cell">'+ nullvalidation(data2[i].pre_Proc) +'</td>  \
                                       <td class = "cells data_cell">'+ nullvalidation(data2[i].ads_post_IAEB)+'</td>  \
                                       <td class = "cells data_cell">'+ nullvalidation(data2[i].Pre_bid) +'</td>\
@@ -257,7 +293,51 @@ module.exports.controller = function(app) {
                                   if(record_len2 == 0  && record_len ==0)
                                     html=' <tr class = "row-hover procurement_data" data-id = "none"><td class = "cells data_cell" colspan="37" style ="text-align: left;"><b>No Results Found</b></td><tr>'
 
+
+                                     html = html+` <tr class = "row-hover procurement_data" data-id = "none">\
+                                      <td class = "cells small_width"></td>\
+                                      <td class = "cells small_width"></td>\
+                                      <td class = "cells small_width"></td> \
+                                      <td class = "cells program_name no-pads"></td>  \
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td>  \
+                                      <td class = "cells data_cell"></td>  \
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td> \ 
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td> \ 
+                                      <td class = "cells data_cell"></td>  \
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"><b>SUB-TOTAL:</b></td>\
+                                      <td class = "cells data_cell">`+nullvalidation(data3[0].total_ABC)+`</td>\
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"><b>SUB-TOTAL:</b></td>\
+                                      <td class = "cells data_cell">`+nullvalidation(data3[0].total_contract_cost)+`</td> \
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cells data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                      <td class = "cellsh data_cell"></td>\
+                                  </tr>`;  
+
                                   res.send(html);
+
+                      })            
               })
             
           
@@ -276,7 +356,7 @@ module.exports.controller = function(app) {
             .input('PO_JO', sql.NVarChar, req.body.PO_JO)
             .input('program_proj_name', sql.NVarChar, req.body.program_proj_name)
             .input('end_user', sql.NVarChar, req.body.end_user)
-            .input('MOP', sql.NVarChar, req.body.MOP)
+            .input('MOP', sql.Int, parseInt(req.body.MOP))
             .input('pre_Proc', sql.NVarChar,  convertDate(req.body.pre_Proc))
             .input('ads_post_IAEB', sql.NVarChar,  convertDate(req.body.ads_post_IAEB))
             .input('Pre_bid', sql.NVarChar,  convertDate(req.body.Pre_bid))
@@ -289,7 +369,7 @@ module.exports.controller = function(app) {
             .input('Notice_To_Proceed', sql.NVarChar,  convertDate(req.body.Notice_To_Proceed))
             .input('Del_Completion', sql.NVarChar,  convertDate(req.body.Del_Completion))
             .input('Acceptance_date', sql.NVarChar,  convertDate(req.body.Acceptance_date))
-            .input('Source_of_Funds', sql.NVarChar, req.body.Source_of_Funds)
+            .input('Source_of_Funds', sql.Int, req.body.Source_of_Funds)
             .input('ABC', sql.Float,parseFloat(req.body.ABC))
             .input('ABC_MOOE', sql.Float, parseFloat(req.body.ABC_MOOE))
             .input('ABC_CO', sql.Float, parseFloat(req.body.ABC_CO))
@@ -331,7 +411,7 @@ module.exports.controller = function(app) {
             .input('PO_JO', sql.NVarChar, req.body.PO_JO)
             .input('program_proj_name', sql.NVarChar, req.body.program_proj_name)
             .input('end_user', sql.NVarChar, req.body.end_user)
-            .input('MOP', sql.NVarChar, req.body.MOP)
+            .input('MOP', sql.Int, parseInt(req.body.MOP))
             .input('pre_Proc', sql.NVarChar,  convertDate(req.body.pre_Proc))
             .input('ads_post_IAEB', sql.NVarChar,  convertDate(req.body.ads_post_IAEB))
             .input('Pre_bid', sql.NVarChar,  convertDate(req.body.Pre_bid))
@@ -344,7 +424,7 @@ module.exports.controller = function(app) {
             .input('Notice_To_Proceed', sql.NVarChar,  convertDate(req.body.Notice_To_Proceed))
             .input('Del_Completion', sql.NVarChar,  convertDate(req.body.Del_Completion))
             .input('Acceptance_date', sql.NVarChar,  convertDate(req.body.Acceptance_date))
-            .input('Source_of_Funds', sql.NVarChar, req.body.Source_of_Funds)
+            .input('Source_of_Funds', sql.Int, req.body.Source_of_Funds)
             .input('ABC', sql.Float,parseFloat(req.body.ABC))
             .input('ABC_MOOE', sql.Float, parseFloat(req.body.ABC_MOOE))
             .input('ABC_CO', sql.Float, parseFloat(req.body.ABC_CO))

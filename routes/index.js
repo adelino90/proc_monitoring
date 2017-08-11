@@ -39,16 +39,23 @@ module.exports.controller = function(app) {
         request.input('ptype', sql.Int, 2)
         request.execute('get_all_procurement', (err, result) => {
             // ... error checks 
-            
-            request.input('from', sql.NVarChar, dates[0]) 
-            request.input('to', sql.NVarChar, dates[1]) 
-            request.input('ptype', sql.Int, 1)    
-            request.execute('get_all_procurement',(err, result1) => {
-                
-                 res.render('index',{title:"Procurement Monitoring",data1:result.recordset,data2:result1.recordset,datefrom:datefrom,dateto:dateto});
+                            
+                            request.input('from', sql.NVarChar, dates[0]) 
+                            request.input('to', sql.NVarChar, dates[1]) 
+                            request.input('ptype', sql.Int, 1)    
+                            request.execute('get_all_procurement',(err, result1) => {
+                                         const totalrequest = new sql.Request(gpool)
+                                        totalrequest.input('search_str', sql.NVarChar, '')     
+                                        totalrequest.input('from', sql.NVarChar, dates[0]) 
+                                        totalrequest.input('to', sql.NVarChar, dates[1])    
+                                        totalrequest.input('ptype', sql.Int, 1)    
+                                        totalrequest.execute('get_total_ABC_CC',(err, total) => {
+                                            total = total.recordset
+                                          
+                                                res.render('index',{title:"Procurement Monitoring",data1:result.recordset,data2:result1.recordset,datefrom:datefrom,dateto:dateto,ABC:total[0].total_ABC,contract_cost:total[0].total_contract_cost});
 
-            })
-           
+                                        })  
+                            })
 
         }) 
 

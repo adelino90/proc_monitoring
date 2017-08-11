@@ -21,7 +21,7 @@
                 <div class="overlay">
                   
                 </div>
-                   <div class="form-group">
+                  <div class="form-group">
                       <label>Procurement Type:</label>
                     <select class="form-control" id="ptype">
                         <% if(locals.data){ %>
@@ -56,9 +56,25 @@
                     <textarea class="form-control" rows="5" id="program_proj_name"><%= (locals.data ? data.program_proj_name : '') %></textarea>
                   </div>
                   <div class="form-group">
-                    <label>Mode of Procurement:</label>
-                    <input type="text" class="form-control" id="MOP" value ='<%= (locals.data ? data.MOP : '') %>'>
+                      <label>Mode of Procurement:</label>
+                    <select class="form-control" id="mode">
+                        <% if(locals.data){ %>
+                            <% if(data.MOP_id) %>
+                                <option disabled selected value> -- select an option -- </option>
+                        <%  } else {%>
+                               <option disabled selected value> -- select an option -- </option>
+                        <%  } %>
+                        <% for(var i=0; i<modes.length; i++) { %>
+                        
+                           
+                             
+                            <option value = '<%= modes[i].MOP_id %>' <%= (locals.data && modes[i].MOP_id  == data.MOP_id  ? 'selected' : '') %>><%= modes[i].MOP_Description %></option>
+            
+                      <%  } %>
+                    </select>
                   </div>
+
+
                   <div class="form-group">
                     <label>PMO/End-User:</label>
                     <input type="text" class="form-control" id="end_user" value ='<%= (!locals.data ? '' : data.end_user ) %>'>
@@ -122,8 +138,23 @@
                 </div>
                 <div class="form-group">
                     <label>Source of Funds:</label>
-                    <input type="text" class="form-control" id="Source_of_Funds" value ='<%= (locals.data ? data.Source_of_Funds : '') %>'>
-                </div>
+                   <select class="form-control" id="fund">
+                        <% if(locals.data){ %>
+                            <% if(data.fund_ID) %>
+                                <option disabled selected value> -- select an option -- </option>
+                        <%  } else {%>
+                               <option disabled selected value> -- select an option -- </option>
+                        <%  } %>
+                        <% for(var i=0; i<source_of_fund.length; i++) { %>
+                        
+                           
+                             
+                            <option value = '<%= source_of_fund[i].fund_ID %>' <%= (locals.data && source_of_fund[i].fund_ID  == data.fund_ID  ? 'selected' : '') %>><%= source_of_fund[i].Fund_Name %></option>
+            
+                      <%  } %>
+                    </select>
+                </div>  
+
                    <div class="col-md-12 border">
                       <p class="thick">ABC(PhP)</p>
                       <div class="col-md-3 form-group">
@@ -132,15 +163,15 @@
                       </div>
                       <div class="col-md-3 form-group">
                         <label>MOOE:</label>
-                        <input type="number" class="form-control" id="ABC_MOOE" value ='<%= (locals.data ? data.ABC_MOOE : '') %>'>
+                        <input type="number" class="form-control copy_ABC" id="ABC_MOOE" value ='<%= (locals.data ? data.ABC_MOOE : '') %>'>
                       </div>
                       <div class="col-md-3 form-group">
                         <label>	CO:</label>
-                        <input type="number" class="form-control" id="ABC_CO" value ='<%= (locals.data ? data.ABC_CO : '') %>'>
+                        <input type="number" class="form-control copy_ABC" id="ABC_CO" value ='<%= (locals.data ? data.ABC_CO : '') %>'>
                       </div>
                       <div class="col-md-3 form-group">
                         <label>	Others:</label>
-                        <input type="number" class="form-control" id="ABC_Others" value ='<%= (locals.data ? data.ABC_Others : '') %>'>
+                        <input type="number" class="form-control copy_ABC" id="ABC_Others" value ='<%= (locals.data ? data.ABC_Others : '') %>'>
                       </div>
                    </div>
 
@@ -152,15 +183,15 @@
                       </div>
                       <div class="col-md-3 form-group">
                         <label>MOOE:</label>
-                        <input type="number" class="form-control" id="Contract_Cost_MOOE" value ='<%= (locals.data ? data.Contract_Cost_MOOE : '') %>'>
+                        <input type="number" class="form-control copy_concost" id="Contract_Cost_MOOE" value ='<%= (locals.data ? data.Contract_Cost_MOOE : '') %>'>
                       </div>
                       <div class="col-md-3 form-group">
                         <label>	CO:</label>
-                        <input type="number" class="form-control" id="Contract_Cost_CO" value ='<%= (locals.data ? data.Contract_Cost_CO : '') %>'>
+                        <input type="number" class="form-control copy_concost" id="Contract_Cost_CO" value ='<%= (locals.data ? data.Contract_Cost_CO : '') %>'>
                       </div>
                       <div class="col-md-3 form-group">
                         <label>	Others:</label>
-                        <input type="number" class="form-control" id="Contract_Cost_Others" value ='<%= (locals.data ? data.Contract_Cost_Others : '') %>'>
+                        <input type="number" class="form-control copy_concost" id="Contract_Cost_Others" value ='<%= (locals.data ? data.Contract_Cost_Others : '') %>'>
                       </div>
                    </div>
                    <div class="form-group">
@@ -240,7 +271,7 @@
             entry.PO_JO  =$('#PO_JO').val();
             entry.program_proj_name  =$('#program_proj_name').val();
             entry.end_user  = $('#end_user').val();
-            entry.MOP  = $('#MOP').val();
+            entry.MOP  = ($('#mode').find(":selected").val() != "" ?  $('#mode').find(":selected").val() : undefined);
             entry.pre_Proc  = $('#pre_Proc').val();
             entry.ads_post_IAEB  = $('#ads_post_IAEB').val();
             entry.Pre_bid = $('#Pre_bid').val();
@@ -253,7 +284,7 @@
             entry.Notice_To_Proceed  = $('#Notice_To_Proceed').val();
             entry.Del_Completion =$('#Del_Completion').val();
             entry.Acceptance_date  = $('#Acceptance_date').val();
-            entry.Source_of_Funds  = $('#Source_of_Funds').val();
+            entry.Source_of_Funds  =($('#fund').find(":selected").val() != "" ?  $('#fund').find(":selected").val() : undefined);
             entry.ABC  = $('#ABC').val();
             entry.ABC_MOOE  = $('#ABC_MOOE').val();
             entry.ABC_CO  = $('#ABC_CO').val();
@@ -277,6 +308,7 @@
             entry.ptype = ($('#ptype').find(":selected").val() != "" ? $('#ptype').find(":selected").val() : undefined);
           if(!$("#ptype").val()){
             $("#ptype").css("border-color","rgb(255, 0, 0)")
+            $(".overlay").hide();
           }else{
                 if(parseInt($(this).attr('data-id'))==1){
                   $.ajax({
@@ -310,6 +342,21 @@
         }
 
       })
+
+      $(".copy_concost").keyup(function(){
+          var cost = $(this).val();
+
+           $(".copy_concost").not(this).val('');
+          $("#Contract_Cost").val(cost)
+
+      });
+       $(".copy_ABC").keyup(function(){
+          var cost = $(this).val();
+          $("#ABC").val(cost)
+            $(".copy_ABC").not(this).val('');
+
+      });
+        
   	  $.fn.datepicker.defaults.format = "mm/dd/yyyy";
 			$('.datepicker').datepicker({
        format: 'dd/mm/yyyy',
